@@ -1,0 +1,5 @@
+@import '../../layouts/gatstrap.scss';
+
+.btn-social-icon {
+    color: map-get($theme-colors, textLight);
+}
