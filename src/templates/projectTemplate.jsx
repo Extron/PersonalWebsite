@@ -1,6 +1,10 @@
 import React from "react";
 import Helmet from "react-helmet";
 import styled from "styled-components";
+import rehypeReact from "rehype-react";
+
+import ImageCarousel from "../components/Common/ImageCarousel";
+import MarkdownImage from "../components/Common/MarkdownImage";
 
 import config from "../../data/SiteConfig";
 
@@ -8,6 +12,7 @@ const Container = styled.div.attrs({
     className: "container"
 })`
     margin-top: 16px;
+    margin-bottom: 48px;
 `;
 
 const Project = styled.div`
@@ -40,6 +45,14 @@ export default class ProjectTemplate extends React.Component {
         const projectNode = this.props.data.markdownRemark;
         const slug = this.props.pathContext.slug;
 
+        const renderAst = new rehypeReact({
+            createElement: React.createElement,
+            components: {
+                "image-carousel": ImageCarousel,
+                "md-image": MarkdownImage
+            }
+        }).Compiler;
+
         return (
             <div className="project-page">
                 <Helmet>
@@ -56,7 +69,7 @@ export default class ProjectTemplate extends React.Component {
                             </ProjectHeader>
                             <hr />
                             <ProjectBody>
-                                <div dangerouslySetInnerHTML={{ __html: projectNode.html }} />
+                                {renderAst(projectNode.htmlAst)}
                             </ProjectBody>
                         </Project>
                     </div>
@@ -78,7 +91,7 @@ export const projectQuery = graphql`
             fileAbsolutePath: { regex: "\/.*\/projects\/.*\\.md$/" }
             fields: { slug: { eq: $slug } }
         ) {
-            html
+            htmlAst
             frontmatter {
                 title
                 category

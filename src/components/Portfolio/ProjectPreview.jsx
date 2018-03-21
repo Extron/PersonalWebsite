@@ -6,6 +6,8 @@ const Card = styled.div.attrs({
     className: "card"
 })`
     max-width: 320px;
+    min-width: 192px;
+    margin-top: 16px;
 `;
 
 const CardTitle = styled.h5.attrs({

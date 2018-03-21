@@ -7,6 +7,4 @@ tags:
 dir: "blog"
 template: "postTemplate.jsx"
 ---
-# My First Blog Post
-
 This is my first blog post, and is being used as a test of my website's blog

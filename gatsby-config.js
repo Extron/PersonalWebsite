@@ -14,7 +14,7 @@ module.exports = {
       title: config.siteTitle,
       description: config.siteDescription,
       image_url: `${config.siteUrl + pathPrefix}/logos/logo-512.png`,
-      author: config.userName,
+      author: config.user.name,
       copyright: config.copyright
     }
   },
@@ -187,5 +187,4 @@ module.exports = {
       }
     }
   ]
-  
 };

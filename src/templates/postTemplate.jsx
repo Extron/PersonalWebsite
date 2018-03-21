@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import config from "../../data/SiteConfig";
 
+import Disqus from "../components/Disqus/Disqus";
+
 const Container = styled.div.attrs({
     className: "container"
 })`
@@ -39,12 +41,13 @@ export default class PostTemplate extends React.Component {
     render() {
         const postNode = this.props.data.markdownRemark;
         const slug = this.props.pathContext.slug;
+        const url = `${config.siteUrl}/${postNode.frontmatter.dir}${slug}`;
 
         return (
             <div className="project-page">
                 <Helmet>
                     <title>{`${postNode.frontmatter.title} | ${config.siteTitle} `}</title>
-                    <link rel="canonical" href={`${config.siteUrl}${slug}`} />
+                    <link rel="canonical" href={url} />
                 </Helmet>
                 <Container>
                     <div className="col-md-12">
@@ -60,6 +63,7 @@ export default class PostTemplate extends React.Component {
                                 <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
                             </PostBody>
                         </Post>
+                        <Disqus postInfo={{ title: postNode.frontmatter.title, url: url}} expanded="true" />
                     </div>
                 </Container>
             </div>
@@ -85,6 +89,7 @@ export const postQuery = graphql`
                 date
                 topic
                 tags
+                dir
             }
             fields {
                 slug

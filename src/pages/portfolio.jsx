@@ -18,6 +18,21 @@ const Header = styled.div`
     }
 `;
 
+const ProjectCategory = styled.div.attrs({
+    className: "project-category"
+})`
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid lightgrey;
+
+    > h2
+    {
+        font-size: 2em;
+    }
+`;
+
 const ProjectCardDeck = styled.div.attrs({
     className: "card-deck"
 })`
@@ -27,7 +42,8 @@ export default class Portfolio extends React.Component {
     render() {
         const projectEdges = this.props.data.allMarkdownRemark.edges;
         const projects = this.normalizeProjectQuery(projectEdges);
-
+        const categories = Array.from(new Set(projects.map(project => project.category)));
+        
         return (
             <div className="portfolio-container">
                 <Helmet>
@@ -41,12 +57,21 @@ export default class Portfolio extends React.Component {
                         <p>A list of various projects I have worked on.</p>
                     </Header>
                     <hr/>
-                    <ProjectCardDeck>
-                        {this.renderProjectPreviews(projects)}
-                    </ProjectCardDeck>
+                    {this.renderCategories(categories, projects)}
                 </Container>
             </div>
         );
+    }
+
+    renderCategories(categories, projects) {
+        return categories.map(category => (
+            <ProjectCategory>
+                <h2>{category}</h2>
+                <ProjectCardDeck>
+                    {this.renderProjectPreviews(projects.filter(project => project.category === category))}
+                </ProjectCardDeck>
+            </ProjectCategory> 
+        ))
     }
 
     renderProjectPreviews(projects) {
