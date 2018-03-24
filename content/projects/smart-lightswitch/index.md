@@ -12,6 +12,7 @@ tags:
     - Raspberry Pi
 dir: "projects"
 template: "projectTemplate.jsx"
+status: "active"
 ---
 Source: [Extron/SmartLightSwitch](https://github.com/Extron/SmartLightSwitch)
 

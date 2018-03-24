@@ -11,6 +11,7 @@ tags:
     - cosplay
 dir: "projects"
 template: "projectTemplate.jsx"
+status: "completed"
 ---
 For Halloween 2017, I decided to make a Dr. Strange costume, which could then be used for cosplay purposes at various events the next year.  Compared to my previous year's [Kylo Ren costume](), the outfit Dr. Strange wears in 2016's [_Dr. Strange_](http://www.imdb.com/title/tt1211837/) is both more colorful and more varied in texture and flow.
 

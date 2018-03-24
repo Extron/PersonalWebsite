@@ -11,5 +11,6 @@ tags:
     - Blender
 dir: "projects"
 template: "projectTemplate.jsx"
+status: "backburner"
 ---
 No Longer Human was designed to be a first-person multiplayer arena shooter.  I worked on this game constantly through college

@@ -10,6 +10,7 @@ tags:
     - collections
 dir: "projects"
 template: "projectTemplate.jsx"
+status: "archived"
 ---
 I took compoisition lessons while growing up from [Len Rhodes](https://lenrhodesmusic.com/), who founded the [Pikes Peak Young Composers competition](https://summitmusicandarts.org/pages/young-composers-competition) (it has since been changed to the Summit Young Composers Competition). For archival purposes, I have chosen to list the pieces I wrote that I can still find here.
 

@@ -47,7 +47,7 @@ export default class Portfolio extends React.Component {
         return (
             <div className="portfolio-container">
                 <Helmet>
-                    <title>{`Portfolio | ${config.siteTitle}`}</title>
+                    <title>{`Projects | ${config.siteTitle}`}</title>
                     <link rel="canonical" href={`${config.siteUrl}/portfolio/`} />
                 </Helmet>
 

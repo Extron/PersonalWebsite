@@ -40,7 +40,7 @@ export default class PostPreview extends React.Component {
                 <div className="card-body">
                     <Header href={postInfo.path}>
                         <h2 className="card-title">{postInfo.title}</h2>
-                        <p>{postInfo.date}</p>
+                        <h6>{postInfo.date}</h6>
                     </Header>
                     <Excerpt>{postInfo.excerpt}</Excerpt>
                 </div>

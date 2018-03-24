@@ -11,6 +11,7 @@ tags:
     - Bootstrap
 dir: "projects"
 template: "projectTemplate.jsx"
+status: "active"
 ---
 
 Learning gatsbyjs is interesting and challenging.
