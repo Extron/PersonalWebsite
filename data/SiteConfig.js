@@ -31,7 +31,7 @@ module.exports = {
             },
             {
                 label: "Projects",
-                path: "/portfolio/"
+                path: "/projects/"
             },
             {
                 label: "Blog",

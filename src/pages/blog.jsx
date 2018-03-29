@@ -36,7 +36,7 @@ export default class Blog extends React.Component {
 
                 <Container>
                     <Header>
-                        <h1>My Blog</h1>
+                        <h1>Blog</h1>
                         <p>I write about a variety of topics. Browse by topic or by post date.</p>
                     </Header>
                     <hr/>

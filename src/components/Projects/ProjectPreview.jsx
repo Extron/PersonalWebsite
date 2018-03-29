@@ -1,13 +1,20 @@
 import React from "react";
 import Link from "gatsby-link";
-import styled from 'styled-components';
+import styled from "styled-components";
+
+import { Button } from "../Common/StyledComponents";
+
+import projectMetadata from "../../../data/ProjectMetadata"
+import theme from "../../../data/SiteTheme";
 
 const Card = styled.div.attrs({
     className: "card"
 })`
     max-width: 320px;
     min-width: 192px;
-    margin-top: 16px;
+`;
+
+const CardStatus = styled.h5`
 `;
 
 const CardTitle = styled.h5.attrs({
@@ -39,10 +46,12 @@ const CardImage = styled.img.attrs({
 
 export default class ProjectPreview extends React.Component {
     render() {
-        const { projectInfo } = this.props;
+        const { projectInfo, showStatus } = this.props;
+        const status = showStatus !== undefined ? this.renderStatus(projectInfo) : "";
 
         return (
             <Card>
+                {status}
                 <CardImage src={projectInfo.previewImage} alt="Card image cap"/>
                 <div className="card-body">
                     <CardSubtitle>{projectInfo.category}</CardSubtitle>
@@ -50,9 +59,25 @@ export default class ProjectPreview extends React.Component {
                     <CardPreviewCopy>{projectInfo.previewCopy}</CardPreviewCopy>
                 </div>
                 <div className="card-footer">
-                    <a href={projectInfo.path} className="btn btn-primary">View</a>
+                    <Button href={projectInfo.path}>View</Button>
                 </div>
             </Card>
         );
+    }
+
+    renderStatus(projectInfo) {
+        return (
+            <div className="card-header" style={{backgroundColor: this.getHeaderBackgroundColor(projectInfo.status)}}>
+                <CardStatus style={{color: theme.colors.textLight}}>{this.capitalizeStatus(projectInfo.status)}</CardStatus>
+            </div>
+        );
+    }
+
+    getHeaderBackgroundColor(status) {
+        return projectMetadata.statuses.find(statusConfig => statusConfig.name === status).color;
+    }
+
+    capitalizeStatus(status) {
+        return status.charAt(0).toUpperCase() + status.slice(1);
     }
 }

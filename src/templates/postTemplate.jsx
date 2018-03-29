@@ -1,10 +1,11 @@
 import React from "react";
 import Helmet from "react-helmet";
+import Disqus from "../components/Disqus/Disqus";
 import styled from "styled-components";
 
-import config from "../../data/SiteConfig";
+import "katex/dist/katex.min.css"
 
-import Disqus from "../components/Disqus/Disqus";
+import config from "../../data/SiteConfig";
 
 const Container = styled.div.attrs({
     className: "container"

@@ -1,9 +1,12 @@
 import React from "react";
 import Helmet from "react-helmet";
 import styled from "styled-components";
-import config from "../../data/SiteConfig";
 
-import ProjectPreview from "../components/Portfolio/ProjectPreview"
+import ProjectPreview from "../components/Projects/ProjectPreview";
+import { GridDeck } from "../components/Common/StyledComponents";
+
+import config from "../../data/SiteConfig";
+import projectMetadata from "../../data/ProjectMetadata";
 
 const Container = styled.div.attrs({
     className: "container"
@@ -30,25 +33,21 @@ const ProjectCategory = styled.div.attrs({
     > h2
     {
         font-size: 2em;
+        margin-bottom: 16px;
     }
 `;
 
-const ProjectCardDeck = styled.div.attrs({
-    className: "card-deck"
-})`
-`;
-
-export default class Portfolio extends React.Component {
+export default class Projects extends React.Component {
     render() {
         const projectEdges = this.props.data.allMarkdownRemark.edges;
         const projects = this.normalizeProjectQuery(projectEdges);
         const categories = Array.from(new Set(projects.map(project => project.category)));
         
         return (
-            <div className="portfolio-container">
+            <div className="projects-container">
                 <Helmet>
                     <title>{`Projects | ${config.siteTitle}`}</title>
-                    <link rel="canonical" href={`${config.siteUrl}/portfolio/`} />
+                    <link rel="canonical" href={`${config.siteUrl}/projects/`} />
                 </Helmet>
 
                 <Container>
@@ -64,19 +63,26 @@ export default class Portfolio extends React.Component {
     }
 
     renderCategories(categories, projects) {
-        return categories.map(category => (
+        return categories.sort((a, b) => projectMetadata.categories.indexOf(a) - projectMetadata.categories.indexOf(b)).map(category => (
             <ProjectCategory>
                 <h2>{category}</h2>
-                <ProjectCardDeck>
+                <GridDeck>
                     {this.renderProjectPreviews(projects.filter(project => project.category === category))}
-                </ProjectCardDeck>
+                </GridDeck>
             </ProjectCategory> 
         ))
     }
 
     renderProjectPreviews(projects) {
-        return projects.map(project => (
-            <ProjectPreview key={project.title} projectInfo={project} />
+        const sort = (a, b) => {
+            const aStatus = projectMetadata.statuses.find(statusConfig => statusConfig.name === a.status);
+            const bStatus = projectMetadata.statuses.find(statusConfig => statusConfig.name === b.status);
+
+            return projectMetadata.statuses.indexOf(aStatus) - projectMetadata.statuses.indexOf(bStatus);
+        };
+
+        return projects.sort(sort).map(project => (
+            <ProjectPreview key={project.title} projectInfo={project} showStatus="showStatus" />
         ));
     }
 
@@ -88,6 +94,7 @@ export default class Portfolio extends React.Component {
                 path: `/${edge.node.frontmatter.dir}${edge.node.fields.slug}`,
                 title: edge.node.frontmatter.title,
                 category: edge.node.frontmatter.category,
+                status: edge.node.frontmatter.status,
                 previewCopy: edge.node.frontmatter.previewCopy,
                 previewImage: edge.node.frontmatter.previewImage ? edge.node.frontmatter.previewImage.childImageSharp.original.src : ""
             });
@@ -113,6 +120,7 @@ export const projectsQuery = graphql`
                         title
                         dir
                         category
+                        status
                         previewCopy
                         previewImage {
                             childImageSharp {

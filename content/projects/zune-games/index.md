@@ -12,7 +12,7 @@ tags:
     - Zune
 dir: "projects"
 template: "projectTemplate.jsx"
-status: "archive"
+status: "archived"
 ---
 My initial foray into software development began with learning to program video games in [Microsoft's XNA Platform](https://msdn.microsoft.com/en-us/library/bb203894.aspx) for the [Zune](https://en.wikipedia.org/wiki/Zune). For archival purposes, I have listed the games that I developed here.
 

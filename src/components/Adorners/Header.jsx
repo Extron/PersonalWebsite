@@ -4,43 +4,84 @@ import styled from "styled-components";
 
 import { header } from "../../../data/SiteConfig";
 
+const NavBar = styled.nav.attrs({
+    className: "navbar navbar-expand"
+})`
+    background-color: ${props => props.theme.colors.primary};
+
+    .container {   
+        display: flex;
+        align-items: baseline;
+    }
+
+    a {
+        color: ${props => props.theme.colors.textLight};
+    }
+`;
+
+const Branding = styled.div`
+    margin: 0px 12px;
+    
+    .navbar-brand {
+        font-size: 2rem;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    img {
+        display: inline-block;
+        vertical-align: text-bottom;
+        padding-bottom: 0px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+    }
+`;
+
+const Page = styled.div`
+    .nav-link {
+        font-size: 1.2rem;
+        margin: 0px 0px;
+        padding: 0px;
+    }
+`;
 
 const SocialButton = styled.a.attrs({
     className: "btn btn-social-icon"
 })`
-    color: ${props => props.theme.colors.textLight};
+    font-size: 1.3rem;
 `;
 
 export default class Header extends React.Component {
     render() {
         return (
-            <nav className="navbar navbar-expand navbar-dark flex-column flex-md-row bg-primary">
+            <NavBar>
                 <div className="container">
-                    <Link className="text-center" to="/">
-                        <h1 className="navbar-brand mb-0">{header.title}</h1>
-                    </Link>
-                    <div className="navbar-nav-scroll">
-                        <ul className="navbar-nav bd-navbar-nav flex-row">
-                            {this.renderPages(header.pages, this.props.location)}
-                        </ul>
-                    </div>
+                    <Branding>
+                        <Link to="/">
+                            <img src="/logos/logo-48.png" height="32"/>
+                            <h1 className="navbar-brand">{header.title}</h1>
+                        </Link>
+                    </Branding>
+                    <ul className="navbar-nav flex-row">
+                        {this.renderPages(header.pages, this.props.location)}
+                    </ul>
                     <div className="navbar-nav flex-row ml-md-auto d-none d-md-flex" />
-                    <div className="navbar-nav-scroll">
-                        <ul className="navbar-nav navbar-right">
-                            {this.renderSocialMedia(header.socialMedia)}
-                        </ul>
-                    </div>
+                    <ul className="navbar-nav navbar-right">
+                        {this.renderSocialMedia(header.socialMedia)}
+                    </ul>
                 </div>
-            </nav>
+            </NavBar>
         );
     }
 
     renderPages(pages, location) {
         return pages.map(link => (
             <li key={link.label} className={location.pathname === link.path ? 'nav-item active' : 'nav-item'}>
-                <Link to={link.path} className="nav-link">
-                    {link.label}
-                </Link>
+                <Page>
+                    <Link to={link.path} className="nav-link">
+                        {link.label}
+                    </Link>
+                </Page>
             </li>
         ));
     }

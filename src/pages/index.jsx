@@ -4,8 +4,9 @@ import SEO from "../components/SEO/SEO";
 import Link from "gatsby-link";
 import styled from "styled-components";
 
-import ProjectPreview from "../components/Portfolio/ProjectPreview";
+import ProjectPreview from "../components/Projects/ProjectPreview";
 import PostPreview from "../components/Blog/PostPreview";
+import { GridDeck } from "../components/Common/StyledComponents";
 
 import config from "../../data/SiteConfig";
 
@@ -18,6 +19,14 @@ const PreviewContainer = styled.div.attrs({
     className: "container-fluid"
 })`
     padding: 16px 15%;
+`;
+
+const ProjectCardDeck = styled.div.attrs({
+    className: "grid-deck"
+})`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+    grid-gap: 16px;
 `;
 
 const VerticalSplitter = styled.div.attrs({
@@ -42,7 +51,7 @@ class Index extends React.Component {
         const postEdges = this.props.data.allMarkdownRemark.edges;
 
         const projects = this.normalizeProjectQuery(postEdges.filter(edge => edge.node.frontmatter.dir === "projects" && edge.node.frontmatter.status === "active"));
-        const posts = this.normalizePostQuery(postEdges.filter(edge => edge.node.frontmatter.dir === "blog"));
+        const posts = this.normalizePostQuery(postEdges.filter(edge => edge.node.frontmatter.dir === "blog").slice(0, 4));
 
         return (
             <div className="index-container">
@@ -69,11 +78,11 @@ class Index extends React.Component {
                     <div className="row">
                         <div className="col">
                             <h2>Active Projects</h2>
-                            <div className="card-deck">
+                            <GridDeck>
                                 {this.renderProjectPreviews(projects)}
-                            </div>
+                            </GridDeck>
                             <Director>
-                                <Link to="/portfolio/">
+                                <Link to="/projects/">
                                     See All Projects
                                 </Link>
                             </Director>

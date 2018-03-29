@@ -4,6 +4,7 @@ date: "03/13/2018"
 category: "Music/Composition"
 cover: ""
 previewCopy: "A collection of some of the music I composed while taking composition lessons"
+previewImage: "./music-cover.png"
 tags:
     - music
     - composition
