@@ -1,11 +1,15 @@
 import React from "react";
 import Helmet from "react-helmet";
-import Disqus from "../components/Disqus/Disqus";
+import Link from "gatsby-link";
 import styled from "styled-components";
+import lodash from "lodash";
+
+import Disqus from "../../components/Disqus/Disqus";
+import Tag from "../../components/Common/Tag";
 
 import "katex/dist/katex.min.css"
 
-import config from "../../data/SiteConfig";
+import config from "../../../data/SiteConfig";
 
 const Container = styled.div.attrs({
     className: "container"
@@ -21,21 +25,9 @@ const PostHeader = styled.div`
     > h1 {
         font-size: 4em;
     }
-
-    > p {
-        font-size: 1em;
-        margin: 0px;
-        color: #666666;
-    }
 `;
 
 const PostBody = styled.div`
-`;
-
-const Tag = styled.span.attrs({
-    className: "badge badge-primary"
-})`
-    margin: 4px;
 `;
 
 export default class PostTemplate extends React.Component {
@@ -54,10 +46,12 @@ export default class PostTemplate extends React.Component {
                     <div className="col-md-12">
                         <Post>
                             <PostHeader>
-                                <p>{postNode.frontmatter.topic}</p>
+                                <Link to={`/topics/${lodash.kebabCase(postNode.frontmatter.topic)}`}>
+                                    <h3>{postNode.frontmatter.topic}</h3>
+                                </Link>
                                 <h1>{postNode.frontmatter.title}</h1>
                                 <p>{postNode.frontmatter.date}</p>
-                                {this.renderTags(postNode.frontmatter.tags)}
+                                {postNode.frontmatter.tags.map(tag => <Tag key={tag} to={`/blog/tags/${lodash.kebabCase(tag)}`}>{tag}</Tag>)}
                             </PostHeader>
                             <hr />
                             <PostBody>
@@ -69,12 +63,6 @@ export default class PostTemplate extends React.Component {
                 </Container>
             </div>
         )
-    }
-
-    renderTags(tags) {
-        return tags.map(tag => (
-            <Tag key={tag}>{tag}</Tag>
-        ));
     }
 }
 

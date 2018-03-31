@@ -79,73 +79,74 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     const { createPage } = boundActionCreators;
 
     return new Promise((resolve, reject) => {
-        const tagPage = path.resolve("src/templates/tag.jsx");
-        const categoryPage = path.resolve("src/templates/category.jsx");
         resolve(
-            graphql(`
-                {
-                    allMarkdownRemark {
-                        edges {
-                            node {
-                                frontmatter {
-                                    dir
-                                    tags
-                                    category
-                                    template
-                                }
-                                fields {
-                                    slug
-                                }
+            graphql(`{
+                allMarkdownRemark {
+                    edges {
+                        node {
+                            frontmatter {
+                                dir
+                                tags
+                                category
+                                topic
+                                template
+                            }
+                            fields {
+                                slug
                             }
                         }
                     }
                 }
-            `).then(result => {
+            }`).then(result => {
                 if (result.errors) {
                     console.log(result.errors);
                     reject(result.errors);
                 }
 
-                const tagSet = new Set();
-                const categorySet = new Set();
+                const topics = new Set();
+                const tags = {};
+
                 result.data.allMarkdownRemark.edges.forEach(edge => {
-                    if (edge.node.frontmatter.tags) {
-                        edge.node.frontmatter.tags.forEach(tag => {
-                            tagSet.add(tag);
-                        });
+
+                    if (tags[edge.node.frontmatter.dir] == undefined) {
+                        tags[edge.node.frontmatter.dir] = new Set();
                     }
 
-                    if (edge.node.frontmatter.category) {
-                        categorySet.add(edge.node.frontmatter.category);
+                    if (edge.node.frontmatter.tags) {
+                        edge.node.frontmatter.tags.forEach(tag => tags[edge.node.frontmatter.dir].add(tag));
+                    }
+
+                    if (edge.node.frontmatter.topic) {
+                        topics.add(edge.node.frontmatter.topic);
                     }
 
                     createPage({
                         path: `/${edge.node.frontmatter.dir}${edge.node.fields.slug}`,
-                        component: path.resolve(`src/templates/${edge.node.frontmatter.template}`),
+                        component: path.resolve(`src/templates/${edge.node.frontmatter.dir}/${edge.node.frontmatter.template}`),
                         context: {
                             slug: edge.node.fields.slug
                         }
                     });
                 });
 
-                const tagList = Array.from(tagSet);
-                tagList.forEach(tag => {
-                    createPage({
-                        path: `/tags/${_.kebabCase(tag)}/`,
-                        component: tagPage,
-                        context: {
-                            tag
-                        }
+                for (var dir in tags) {
+                    Array.from(tags[dir]).forEach(tag => {
+                        createPage({
+                            path: `/${dir}/tags/${_.kebabCase(tag)}/`,
+                            component: path.resolve(`src/templates/${dir}/tagTemplate.jsx`),
+                            context: {
+                                tag
+                            }
+                        });
                     });
-                });
+                }
 
-                const categoryList = Array.from(categorySet);
-                categoryList.forEach(category => {
+                Array.from(topics).forEach(topic => {
                     createPage({
-                        path: `/categories/${_.kebabCase(category)}/`,
-                        component: categoryPage,
+                        path: `/topics/${_.kebabCase(topic)}/`,
+                        component: path.resolve(`src/templates/blog/topicTemplate.jsx`),
                         context: {
-                            category
+                            topic
                         }
                     });
                 });

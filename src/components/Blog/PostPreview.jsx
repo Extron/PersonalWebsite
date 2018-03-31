@@ -34,9 +34,11 @@ export default class PostPreview extends React.Component {
 
         return (
             <Card>
-                <h5 className="card-header">
-                    {postInfo.topic}
-                </h5>
+                <Link to={`/topics/${postInfo.topic}`}>
+                    <h3 className="card-header">
+                        {postInfo.topic}
+                    </h3>
+                </Link>
                 <div className="card-body">
                     <Header href={postInfo.path}>
                         <h2 className="card-title">{postInfo.title}</h2>

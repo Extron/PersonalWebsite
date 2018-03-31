@@ -2,11 +2,13 @@ import React from "react";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 import rehypeReact from "rehype-react";
+import lodash from "lodash";
 
-import ImageCarousel from "../components/Common/ImageCarousel";
-import MarkdownImage from "../components/Common/MarkdownImage";
+import ImageCarousel from "../../components/Common/ImageCarousel";
+import MarkdownImage from "../../components/Common/MarkdownImage";
+import Tag from "../../components/Common/Tag";
 
-import config from "../../data/SiteConfig";
+import config from "../../../data/SiteConfig";
 
 const Container = styled.div.attrs({
     className: "container"
@@ -23,21 +25,9 @@ const ProjectHeader = styled.div`
     > h1 {
         font-size: 4em;
     }
-
-    > p {
-        font-size: 1em;
-        margin: 0px;
-        color: #666666;
-    }
 `;
 
 const ProjectBody = styled.div`
-`;
-
-const Tag = styled.span.attrs({
-    className: "badge badge-primary"
-})`
-    margin: 4px;
 `;
 
 export default class ProjectTemplate extends React.Component {
@@ -63,9 +53,9 @@ export default class ProjectTemplate extends React.Component {
                     <div className="col-md-12">
                         <Project>
                             <ProjectHeader>
-                                <p>{projectNode.frontmatter.category}</p>
+                                <h3>{projectNode.frontmatter.category}</h3>
                                 <h1>{projectNode.frontmatter.title}</h1>
-                                {this.renderTags(projectNode.frontmatter.tags)}
+                                {projectNode.frontmatter.tags.map(tag => <Tag key={tag} to={`/projects/tags/${lodash.kebabCase(tag)}`}>{tag}</Tag>)}
                             </ProjectHeader>
                             <hr />
                             <ProjectBody>
@@ -76,12 +66,6 @@ export default class ProjectTemplate extends React.Component {
                 </Container>
             </div>
         )
-    }
-
-    renderTags(tags) {
-        return tags.map(tag => (
-            <Tag key={tag}>{tag}</Tag>
-        ));
     }
 }
 

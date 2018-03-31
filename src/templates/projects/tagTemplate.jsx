@@ -2,12 +2,13 @@ import React from "react";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 
-import ProjectPreview from "../components/Projects/ProjectPreview";
-import { GridDeck } from "../components/Common/StyledComponents";
-import { normalizeProjectQuery } from "../components/Utilities/Utilities";
+import ProjectPreview from "../../components/Projects/ProjectPreview";
+import { GridDeck } from "../../components/Common/StyledComponents";
+import { normalizeProjectQuery } from "../../components/Utilities/Utilities";
 
-import config from "../../data/SiteConfig";
-import projectMetadata from "../../data/ProjectMetadata";
+import config from "../../../data/SiteConfig";
+import projectMetadata from "../../../data/ProjectMetadata";
+
 
 const Container = styled.div.attrs({
     className: "container"
@@ -16,62 +17,38 @@ const Container = styled.div.attrs({
 `;
 
 const Header = styled.div`
+    margin: 16px 0px;
+
     > h1 {
-        font-size: 4em;
+        font-size: 3rem;
         margin-bottom: 16px;
     }
 `;
 
-const ProjectCategory = styled.div.attrs({
-    className: "project-category"
-})`
-    margin-top: 16px;
-    margin-bottom: 16px;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid lightgrey;
-
-    > h2
-    {
-        font-size: 2em;
-        margin-bottom: 16px;
-    }
-`;
-
-export default class Projects extends React.Component {
+export default class ProjectsTagTemplate extends React.Component {
     render() {
+        const tag = this.props.pathContext.tag;
         const projectEdges = this.props.data.allMarkdownRemark.edges;
         const projects = normalizeProjectQuery(projectEdges);
-        const categories = Array.from(new Set(projects.map(project => project.category)));
-        
-        return (
-            <div className="projects-container">
-                <Helmet>
-                    <title>{`Projects | ${config.siteTitle}`}</title>
-                    <link rel="canonical" href={`${config.siteUrl}/projects/`} />
-                </Helmet>
 
+        return (
+            <div className="tag-container">
+                <Helmet>
+                    <title>{`Projects tagged as "${tag}" | ${config.siteTitle}`}</title>
+                    <link rel="canonical" href={`${config.siteUrl}/tags/${tag}`} />
+                </Helmet>
                 <Container>
                     <Header>
-                        <h1>Projects</h1>
-                        <p>A list of various projects I have worked on.</p>
+                        <h3>All projects tagged</h3>
+                        <h1>{`"${tag}"`}</h1>
                     </Header>
                     <hr/>
-                    {this.renderCategories(categories, projects)}
+                    <GridDeck>
+                        {this.renderProjectPreviews(projects)}
+                    </GridDeck>
                 </Container>
             </div>
         );
-    }
-
-    renderCategories(categories, projects) {
-        return categories.sort((a, b) => projectMetadata.categories.indexOf(a) - projectMetadata.categories.indexOf(b)).map(category => (
-            <ProjectCategory key={category}>
-                <h2>{category}</h2>
-                <GridDeck>
-                    {this.renderProjectPreviews(projects.filter(project => project.category === category))}
-                </GridDeck>
-            </ProjectCategory> 
-        ))
     }
 
     renderProjectPreviews(projects) {
@@ -88,13 +65,14 @@ export default class Projects extends React.Component {
     }
 }
 
-export const projectsQuery = graphql`
-    query ProjectsQuery {
+export const projectQuery = graphql`
+    query TaggedProjects($tag: String) {
         allMarkdownRemark(
-            limit: 2000
+            limit: 1000
             sort: { fields: [frontmatter___date], order: DESC }
-            filter: { fileAbsolutePath: { regex:"\/.*\/projects\/.*\\.md$/" } }
+            filter: { fileAbsolutePath: { regex:"\/.*\/projects\/.*\\.md$/" }, frontmatter: { tags: { in: [$tag] } } }
         ) {
+            totalCount
             edges {
                 node {
                     fields {

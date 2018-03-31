@@ -3,6 +3,7 @@ import Link from "gatsby-link";
 import styled from "styled-components";
 
 import { Button } from "../Common/StyledComponents";
+import Tag from "../Common/Tag";
 
 import projectMetadata from "../../../data/ProjectMetadata"
 import theme from "../../../data/SiteTheme";
@@ -44,6 +45,10 @@ const CardImage = styled.img.attrs({
     min-height: 128px;
 `;
 
+const CardTags = styled.div`
+    padding: 4px 0px;
+`;
+
 export default class ProjectPreview extends React.Component {
     render() {
         const { projectInfo, showStatus } = this.props;
@@ -56,6 +61,8 @@ export default class ProjectPreview extends React.Component {
                 <div className="card-body">
                     <CardSubtitle>{projectInfo.category}</CardSubtitle>
                     <CardTitle>{projectInfo.title}</CardTitle>
+                    <CardTags>
+                    </CardTags>
                     <CardPreviewCopy>{projectInfo.previewCopy}</CardPreviewCopy>
                 </div>
                 <div className="card-footer">

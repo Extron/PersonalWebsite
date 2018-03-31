@@ -18,3 +18,12 @@ export const Button = styled.a.attrs({
         color: ${props => props.theme.colors.textLight};
     }
 `
+
+export const VerticalSplitter = styled.div.attrs({
+})`
+    width: 1px;
+    height: 100%;
+    border-left: 1px solid lightgrey;
+    margin-left: auto;
+    margin-right: auto;
+`;

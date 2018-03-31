@@ -39,6 +39,13 @@ module.exports = {
                         }
                     },
                     {
+                        resolve: "gatsby-remark-embed-video",
+                        options: {
+                            width: 800,
+                            related: false
+                        }
+                    },
+                    {
                         resolve: "gatsby-remark-responsive-iframe"
                     },
                     "gatsby-remark-prismjs",

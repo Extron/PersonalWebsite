@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import { header } from "../../../data/SiteConfig";
 
+import "font-awesome/scss/font-awesome.scss";
+
 const NavBar = styled.nav.attrs({
     className: "navbar navbar-expand"
 })`

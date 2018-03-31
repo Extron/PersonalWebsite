@@ -1,8 +1,12 @@
 import React from "react";
 import Helmet from "react-helmet";
 import styled from "styled-components";
-import config from "../../data/SiteConfig";
+
 import PostPreview from "../components/Blog/PostPreview";
+import { VerticalSplitter } from "../components/Common/StyledComponents";
+import { normalizePostQuery } from "../components/Utilities/Utilities";
+
+import config from "../../data/SiteConfig";
 
 const Container = styled.div.attrs({
     className: "container"
@@ -25,7 +29,7 @@ const BlogList = styled.div.attrs({
 export default class Blog extends React.Component {
     render() {
         const postEdges = this.props.data.allMarkdownRemark.edges;
-        const posts = this.normalizePostQuery(postEdges);
+        const posts = normalizePostQuery(postEdges);
 
         return (
             <div className="blog-container">
@@ -44,6 +48,9 @@ export default class Blog extends React.Component {
                         <BlogList>
                             {this.renderPostPreviews(posts)}
                         </BlogList>
+                        <div className="col-1">
+                            <VerticalSplitter/>
+                        </div>
                     </div>
                 </Container>
             </div>
@@ -54,22 +61,6 @@ export default class Blog extends React.Component {
         return posts.map(post => (
             <PostPreview key={post.title} postInfo={post} />
         ));
-    }
-
-    normalizePostQuery(edges) {
-        const posts = [];
-
-        edges.forEach(edge => {
-            posts.push({
-                path: `/${edge.node.frontmatter.dir}${edge.node.fields.slug}`,
-                title: edge.node.frontmatter.title,
-                date: edge.node.frontmatter.date,
-                topic: edge.node.frontmatter.topic,
-                excerpt: edge.node.excerpt
-            });
-        });
-
-        return posts;
     }
 }
 

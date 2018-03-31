@@ -5,8 +5,6 @@ import styled, { ThemeProvider } from "styled-components";
 import config from "../../data/SiteConfig";
 import theme from "../../data/SiteTheme";
 
-import "font-awesome/scss/font-awesome.scss";
-import "./index.scss";
 import "./global.scss";
 import './gatstrap.scss'
 
