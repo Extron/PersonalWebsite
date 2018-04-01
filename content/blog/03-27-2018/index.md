@@ -6,8 +6,6 @@ tags:
     - mathematics
     - 538 Riddler
     - puzzle
-dir: "blog"
-template: "postTemplate.jsx"
 ---
 This is a puzzle from [538's The Riddler](https://fivethirtyeight.com/features/can-you-shuffle-numbers-can-you-find-all-the-world-cup-results/) from last Friday. The Riddler Classic asks us to find a positive integer that, when the last digit is moved to the front, is equal to double the value of the original number. This kind of operation, called a [circular shift](https://en.wikipedia.org/wiki/Circular_shift), is common in computer science, especially crytpography.
 

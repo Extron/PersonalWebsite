@@ -61,12 +61,12 @@ export const postQuery = graphql`
                 node {
                     fields {
                         slug
+                        dir
                     }
                     excerpt
                     frontmatter {
                         title
                         date
-                        dir
                         topic
                     }
                 }

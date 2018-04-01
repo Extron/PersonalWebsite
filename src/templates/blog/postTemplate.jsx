@@ -78,10 +78,10 @@ export const postQuery = graphql`
                 date
                 topic
                 tags
-                dir
             }
             fields {
                 slug
+                dir
             }
         }
     }

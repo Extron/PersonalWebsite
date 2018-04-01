@@ -99,10 +99,10 @@ export const projectsQuery = graphql`
                 node {
                     fields {
                         slug
+                        dir
                     }
                     frontmatter {
                         title
-                        dir
                         category
                         status
                         tags

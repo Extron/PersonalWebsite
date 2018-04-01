@@ -83,6 +83,7 @@ export const projectQuery = graphql`
             }
             fields {
                 slug
+                dir
             }
         }
     }

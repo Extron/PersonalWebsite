@@ -9,7 +9,5 @@ tags:
     - costume
     - sewing
     - cosplay
-dir: "projects"
-template: "projectTemplate.jsx"
 status: "completed"
 ---

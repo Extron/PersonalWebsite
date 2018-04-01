@@ -47,8 +47,8 @@ class Index extends React.Component {
     render() {
         const postEdges = this.props.data.allMarkdownRemark.edges;
 
-        const projects = normalizeProjectQuery(postEdges.filter(edge => edge.node.frontmatter.dir === "projects" && edge.node.frontmatter.status === "active"));
-        const posts = normalizePostQuery(postEdges.filter(edge => edge.node.frontmatter.dir === "blog").slice(0, 4));
+        const projects = normalizeProjectQuery(postEdges.filter(edge => edge.node.fields.dir === "projects" && edge.node.frontmatter.status === "active"));
+        const posts = normalizePostQuery(postEdges.filter(edge => edge.node.fields.dir === "blog").slice(0, 4));
 
         return (
             <div className="index-container">
@@ -118,12 +118,12 @@ export const pageQuery = graphql`
                 node {
                     fields {
                         slug
+                        dir
                     }
                     excerpt
                     frontmatter {
                         title
                         date
-                        dir
                         category
                         topic
                         status

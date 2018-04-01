@@ -10,8 +10,6 @@ tags:
     - React.js
     - Gatsby.js
     - Bootstrap
-dir: "projects"
-template: "projectTemplate.jsx"
 status: "active"
 ---
 Source: [Extron/PersonalWebsite](https://github.com/Extron/PersonalWebsite)

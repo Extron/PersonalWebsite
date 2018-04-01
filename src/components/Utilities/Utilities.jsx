@@ -3,7 +3,7 @@ export function normalizeProjectQuery(edges) {
 
     edges.forEach(edge => {
         projects.push({
-            path: `/${edge.node.frontmatter.dir}${edge.node.fields.slug}`,
+            path: `/${edge.node.fields.dir}${edge.node.fields.slug}`,
             title: edge.node.frontmatter.title,
             category: edge.node.frontmatter.category,
             status: edge.node.frontmatter.status,
@@ -21,7 +21,7 @@ export function normalizePostQuery(edges) {
 
     edges.forEach(edge => {
         posts.push({
-            path: `/${edge.node.frontmatter.dir}${edge.node.fields.slug}`,
+            path: `/${edge.node.fields.dir}${edge.node.fields.slug}`,
             title: edge.node.frontmatter.title,
             date: edge.node.frontmatter.date,
             topic: edge.node.frontmatter.topic,

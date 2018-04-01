@@ -66,6 +66,17 @@ module.exports = {
         ]
     },
 
+    // Stores settings for the site's archive.
+    projects: {
+        template: "projectTemplate.jsx"
+    },
+
+    // Stores settings for the site's blog.
+    blog: {
+        template: "postTemplate.jsx",
+        maxPostsPerPage: 10
+    },
+
     // Stores settings for the site's global footer.
     footer: {
         copyright: "Copyright © 2017 Trystan Binkley-Jones"

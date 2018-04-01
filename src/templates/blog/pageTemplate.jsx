@@ -2,11 +2,13 @@ import React from "react";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 
-import PostPreview from "../components/Blog/PostPreview";
-import { VerticalSplitter } from "../components/Common/StyledComponents";
-import { normalizePostQuery } from "../components/Utilities/Utilities";
+import PostPreview from "../../components/Blog/PostPreview";
+import PostList from "../../components/Blog/PostList";
+import Paginator from "../../components/Common/Paginator";
+import { VerticalSplitter } from "../../components/Common/StyledComponents";
+import { normalizePostQuery } from "../../components/Utilities/Utilities";
 
-import config from "../../data/SiteConfig";
+import config from "../../../data/SiteConfig";
 
 const Container = styled.div.attrs({
     className: "container"
@@ -26,10 +28,11 @@ const BlogList = styled.div.attrs({
 })`
 `;
 
-export default class Blog extends React.Component {
+export default class PageTemplate extends React.Component {
     render() {
         const postEdges = this.props.data.allMarkdownRemark.edges;
         const posts = normalizePostQuery(postEdges);
+        const page = this.props.pathContext.page;
 
         return (
             <div className="blog-container">
@@ -46,7 +49,8 @@ export default class Blog extends React.Component {
                     <hr/>
                     <div className="row">
                         <BlogList>
-                            {this.renderPostPreviews(posts)}
+                            <PostList posts={posts}/>
+                            <Paginator start={Math.max(page - 2, 1)} current={page} total={this.props.pathContext.totalPages} path="/blog" />
                         </BlogList>
                         <div className="col-1">
                             <VerticalSplitter/>
@@ -56,18 +60,13 @@ export default class Blog extends React.Component {
             </div>
         );
     }
-
-    renderPostPreviews(posts) {
-        return posts.map(post => (
-            <PostPreview key={post.title} postInfo={post} />
-        ));
-    }
 }
 
 export const postsQuery = graphql`
-    query PostsQuery {
+    query PostsQuery($limit: Int, $skip: Int) {
         allMarkdownRemark(
-            limit: 2000
+            limit: $limit
+            skip: $skip
             sort: { fields: [frontmatter___date], order: DESC }
             filter: { fileAbsolutePath: { regex:"\/.*\/blog\/.*\\.md$/" } }
         ) {
@@ -76,11 +75,11 @@ export const postsQuery = graphql`
                     excerpt
                     fields {
                         slug
+                        dir
                     }
                     frontmatter {
                         title
                         date
-                        dir
                         topic
                     }
                 }
