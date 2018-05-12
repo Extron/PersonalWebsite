@@ -10,7 +10,6 @@ const Carousel = styled.div.attrs({
     {
         position: absolute;
         top: 50%;
-        transform: translate(-50%,-50%);
         z-index: 1000;
         cursor: pointer;
     }
@@ -18,11 +17,13 @@ const Carousel = styled.div.attrs({
     > .left-arrow
     {
         left: 16px;
+        transform: translate(-50%,-50%);
     }
 
     > .right-arrow
     {
         right: 16px;
+        transform: translate(50%,-50%);
     }
 `;
 

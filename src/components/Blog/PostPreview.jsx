@@ -28,7 +28,7 @@ export default class PostPreview extends React.Component {
 
     static propTypes = {
         postInfo: PropTypes.object.isRequired
-      }
+    }
 
     render() {
         const { postInfo } = this.props;

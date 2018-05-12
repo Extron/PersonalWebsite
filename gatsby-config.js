@@ -193,5 +193,5 @@ module.exports = {
             }
         }
     ]
-    
+
 };

@@ -10,6 +10,9 @@ export default class About extends React.Component {
                     <title>{`About | ${config.siteTitle}`}</title>
                     <link rel="canonical" href={`${config.siteUrl}/about/`} />
                 </Helmet>
+                <div className="container">
+                    <h1>Under Construction</h1>
+                </div>
             </div>
         );
     }

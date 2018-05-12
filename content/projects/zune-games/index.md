@@ -4,6 +4,7 @@ date: "03/13/2018"
 category: "Software Development"
 cover: ""
 previewCopy: "A collection of Zune games I developed using Microsoft's XNA framework"
+previewImage: "cover.png"
 tags:
     - programming
     - video games
@@ -12,6 +13,8 @@ tags:
     - Zune
 status: "archived"
 ---
+Source: [Extron/XNAZuneGames](https://github.com/Extron/XNAZuneGames)
+
 My initial foray into software development began with learning to program video games in [Microsoft's XNA Platform](https://msdn.microsoft.com/en-us/library/bb203894.aspx) for the [Zune](https://en.wikipedia.org/wiki/Zune). For archival purposes, I have listed the games that I developed here.
 
 ## Quatrix
@@ -34,7 +37,7 @@ A [Snake](https://en.wikipedia.org/wiki/Snake_(video_game_genre)) type game made
     <img src="./snakez-3.png"/>
 </image-carousel>
 
-## Untitled Top Down Shooter
+## Combat Effective
 A top down shooter where the player navigates rooms and shoots AI controlled enemies. This was never released, and development never made it very far, but I kept on coming back to the concept for years afterward.
 
 <image-carousel id="quatrix-hd-carousel">

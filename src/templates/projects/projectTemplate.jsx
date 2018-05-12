@@ -6,6 +6,7 @@ import lodash from "lodash";
 
 import ImageCarousel from "../../components/Common/ImageCarousel";
 import MarkdownImage from "../../components/Common/MarkdownImage";
+import SCAudioPlayer from "../../components/Common/SCAudioPlayer";
 import Tag from "../../components/Common/Tag";
 
 import config from "../../../data/SiteConfig";
@@ -39,7 +40,8 @@ export default class ProjectTemplate extends React.Component {
             createElement: React.createElement,
             components: {
                 "image-carousel": ImageCarousel,
-                "md-image": MarkdownImage
+                "md-image": MarkdownImage,
+                "sc-audio-player": SCAudioPlayer
             }
         }).Compiler;
 

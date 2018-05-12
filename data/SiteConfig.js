@@ -10,7 +10,7 @@ module.exports = {
     siteGATrackingID: "UA-47311644-4", // Tracking code ID for google analytics.
     postDefaultCategoryID: "Tech", // Default category for posts.
     // Links to social profiles/projects you want to display in the author segment/navigation bar.
-    copyright: "Copyright © 2017. Trystan Binkley-Jones", // Copyright string for the footer of the website and RSS feed.
+    copyright: "Copyright © 2018. Trystan Binkley-Jones", // Copyright string for the footer of the website and RSS feed.
 
     // Stores settings for the site's user.
     user: {
@@ -74,12 +74,13 @@ module.exports = {
     // Stores settings for the site's blog.
     blog: {
         template: "postTemplate.jsx",
-        maxPostsPerPage: 10
+        maxPostsPerPage: 10,
+        maxPreviewPosts: 5
     },
 
     // Stores settings for the site's global footer.
     footer: {
-        copyright: "Copyright © 2017 Trystan Binkley-Jones"
+        copyright: "Copyright © 2018 Trystan Binkley-Jones"
     },
 
     // Stores settings for the site's Disqus integration.
